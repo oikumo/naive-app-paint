@@ -7,6 +7,15 @@
             "request": "launch",
             "reAttach": true,
             "file": "${workspaceFolder}/dist/index.html"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Tests",
+            "program": "${workspaceFolder}/test-runner.mjs",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
     ]
 }

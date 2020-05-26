@@ -1,37 +1,33 @@
-import { CanvasRenderer, RenderTexture, Texture } from 'naive-3d'
+import { CanvasRenderer, RenderTexture } from 'naive-3d'
+import { uiComponent } from './ui/ui-component.mjs'
+import { paint, paintCanvas } from './paint-canvas/paint-canvas.mjs'
 
 const interval = 5
 
-export const run = () => {
+const run = () => {
   const canvas = document.getElementById("canvas")
   const canvasRender = new CanvasRenderer(canvas)
-
   const renderTex = new RenderTexture(canvasRender.imageSize())
-  let bgColor = 0xFF555555
+  let bgColor = 0xFF474a43
+  let painting = false
 
-  const texTarget = new Texture(300, 300)
-  texTarget.fill(() => parseInt(0xFF0000FF))
+  canvas.onmousemove = ({ x, y }) => { if (painting) paint(x, y) }
+  canvas.onmousedown = () => painting = true
+  canvas.onmouseup = () => painting = false
 
-  const texBrush = new Texture(50, 50)
-  texBrush.fill(() => parseInt(0xFFFF00FF))
-
-  let paint = false
-
-  const paintTarget = (x, y) => {
-    texBrush.paintTo(texTarget.pixels, texTarget.width, x - 200 - 25, y - 200 - 25)
+  const ui = () => {
+    uiComponent(0xFFFF5555, renderTex.texture, canvas.width, 0, canvas.height - 200, canvas.width, 200)
+    uiComponent(0xFF00FF77, renderTex.texture, canvas.width, (canvas.width / 2) - 100, canvas.height - 100, 200, 50)
   }
-
-  canvas.onmousemove = (evt) => {
-    if (!paint) return
-    paintTarget(evt.x, evt.y)
-  }
-
-  canvas.onmousedown = () => paint = true
-  canvas.onmouseup = () => paint = false
 
   setInterval(() => {
     renderTex.clear(bgColor)
-    texTarget.paintTo(renderTex.texture, canvas.width, 200, 200)
+    paintCanvas(renderTex.texture, canvas.width)
+    ui()
     canvasRender.draw(renderTex.buf8)
   }, interval)
+}
+
+export {
+  run
 }
