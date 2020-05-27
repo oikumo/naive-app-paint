@@ -16,7 +16,12 @@ const paint = (x, y) => {
 
 const paintCanvas = (to, toWidth) => texTarget.paintTo(to, toWidth, texTargetX, texTargetY)
 
+const paintColor = (color) => {
+    texBrush.fill(() => parseInt(color))
+}
+
 export {
     paint,
-    paintCanvas
+    paintCanvas,
+    paintColor
 }
