@@ -13,14 +13,12 @@ const run = () => {
   const blue = 0xFFFF0000
   const gray = 0xFF111111
 
-  const { createUiComponent, drawUiComponent } = ui
-  const rect = createRectFromCorners({ x: 0, y: 100 }, { x: canvas.width, y: 0 })
-  const rectButton = createRectFromCorners({ x: 0, y: 150 }, { x: 100, y: 100 })
+  const { createUiComponent, drawUiComponent, UiRect } = ui
 
-  const panel = createUiComponent(rect, { x: 0, y: canvas.height - 100 }, gray)
-  const buttonRed = createUiComponent(rectButton, { x: 100, y: canvas.height - 100 }, red)
-  const buttonGreen = createUiComponent(rectButton, { x: 300, y: canvas.height - 100 }, green)
-  const buttonBlue = createUiComponent(rectButton, { x: 500, y: canvas.height - 100 }, blue)
+  const panel = createUiComponent(new UiRect({x: 0, y: canvas.height - 150}, canvas.width, 150), blue)
+  const buttonRed = createUiComponent(new UiRect({x: 100, y: canvas.height - 100}, 100, 50), red)
+  const buttonGreen = createUiComponent(new UiRect({x: 300, y: canvas.height - 100}, 100, 50), green)
+  const buttonBlue = createUiComponent(new UiRect({x: 500, y: canvas.height - 100}, 100, 50), blue)
 
   const drawUi = () => {
     drawUiComponent(panel, renderTex.texture, canvas.width)
@@ -48,7 +46,6 @@ const run = () => {
       currentColor = red
       return
     }
-
     if (buttonGreen.inside({ x, y })) {
       currentColor = green
       paintColor(currentColor)
