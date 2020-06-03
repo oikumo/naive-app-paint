@@ -1,8 +1,15 @@
 .naive3dCanvas {
     text-align: center;
     align-content: center;
-    border:1px solid #000000;
+    border:0px solid #000000;    
+    margin: 0;
+    padding: 0;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+ }
 
 .unselectable {
     -moz-user-select:none;
