@@ -1,5 +1,6 @@
 import { red, green, blue } from './colors.mjs'
-import { Brush, Circle } from './paint-canvas.mjs'
+import { Brush } from './drawing/brush.mjs'
+import { Circle } from './drawing/circle.mjs'
 import { Texture } from 'naive-3d'
 
 const PaintEvents = function (targetTex, buttonRed, buttonGreen, buttonBlue) {

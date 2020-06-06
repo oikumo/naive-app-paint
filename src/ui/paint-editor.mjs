@@ -14,7 +14,6 @@ const PaintEditor = function (width, height) {
 
 PaintEditor.prototype.draw = function (texture, textureWidth) {
     this.tex.paintTo(texture, textureWidth, this.texCenter.x, this.texCenter.y)
-    //paintCanvas(texture, textureWidth)
     this.layout.draw(texture, textureWidth)
 }
 
