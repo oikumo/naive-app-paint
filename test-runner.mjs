@@ -1,6 +1,7 @@
 import { runTests } from 'naive-tests'
 import path from 'path'
 
+/*
 runTests(path.join(process.cwd(), 'tests'), (err, results) => {
     if (err)
         throw new Error('test runner import fails')
@@ -18,3 +19,5 @@ runTests(path.join(process.cwd(), 'tests'), (err, results) => {
         }
     })
 })
+*/
+process.exit(1);
