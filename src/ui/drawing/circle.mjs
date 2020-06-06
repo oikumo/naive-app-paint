@@ -1,7 +1,5 @@
 const Circle = function (radious, width, height) {
     this.radiousSquare = radious * radious
-    this.width = width
-    this.height = height
     this.center = {
         x: width / 2,
         y: height / 2
