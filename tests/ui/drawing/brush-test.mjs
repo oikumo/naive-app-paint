@@ -20,7 +20,7 @@ test('draw circles in a texture', () => {
     equals(true, colored < tex.pixels.length)
 })
 
-test('draw texture in other texture', () => {
+test('draw texture in to other texture', () => {
     const tex = new Texture(20, 20)
     tex.fill(() => parseInt(0x00000000))
 
