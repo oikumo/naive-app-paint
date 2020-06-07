@@ -6,7 +6,6 @@ const { equals } = assertions
 
 test('draw circles in a texture', () => {
     const tex = new Texture(10, 10)
-    const texCenter = { x: tex.width / 2, y: tex.height / 2 }
     tex.fill(() => parseInt(0x00000000))
 
     const brush = new Brush(10, 10)
