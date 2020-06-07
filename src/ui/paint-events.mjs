@@ -19,9 +19,9 @@ const PaintEvents = function (targetTex, buttonRed, buttonGreen, buttonBlue) {
 
 PaintEvents.prototype.onMove = function ({ x, y }) {
   if (this.painting) {
-    this.brush.paintTexture(this.texBrush, this.targetTex, x, y)
     const dx = x + this.targetTex.width / 2
     const dy = y - this.targetTex.height / 2
+    this.brush.paintTexture(this.texBrush, this.targetTex, dx, dy)
     this.brush.paintColor(this.currentColor, this.targetTex.pixels, this.targetTex.width, dx, dy, this.mask)
   }
 }
