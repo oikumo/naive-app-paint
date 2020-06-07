@@ -4,11 +4,7 @@ const Brush = function (width, height) {
 }
 
 Brush.prototype.paintTexture = function (texBrush, target, x, y) {
-    const centerX = texBrush.width / 2
-    const centerY = texBrush.height / 2
-    const dx = x + target.width / 2 - centerX
-    const dy = y - target.height / 2 - centerY
-    texBrush.paintTo(target.pixels, target.width, dx, dy)
+    texBrush.paintTo(target.pixels, target.width, x, y)
 }
 
 Brush.prototype.paintColor = function (color, target, targetWidth, dx, dy, mask) {
