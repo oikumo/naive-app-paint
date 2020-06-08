@@ -3,15 +3,20 @@ import { Brush } from './drawing/brush.mjs'
 import { Circle } from './drawing/circle.mjs'
 import { Texture } from 'naive-3d'
 
-const PaintEvents = function (targetTex, buttonRed, buttonGreen, buttonBlue) {
+const PaintEvents = function (targetTex, buttonRed, buttonGreen, buttonBlue, buttonBrushCircle, buttonBrushTexture) {
   this.targetTex = targetTex
   this.buttonRed = buttonRed
   this.buttonGreen = buttonGreen
   this.buttonBlue = buttonBlue
+  this.buttonBrushCircle = buttonBrushCircle
+  this.buttonBrushTexture = buttonBrushTexture
+
   this.painting = false
   this.currentColor = red
   this.brush = new Brush(20, 20)
   this.mask = new Circle(10, 20, 20)
+
+  this.currentBrush = null
 
   this.texBrush = new Texture(20, 20)
   this.texBrush.fill(() => parseInt(0xFF00FF77))
@@ -34,6 +39,13 @@ PaintEvents.prototype.onActionDown = function () { this.painting = true }
 
 PaintEvents.prototype.onActionUp = function ({ x, y }) {
   this.painting = false
+
+  if (this.buttonBrushCircle.inside({ x, y })) { 
+    return
+  }
+  if (this.buttonBrushCircle.inside({ x, y })) { 
+    return
+  }
 
   if (this.buttonRed.inside({ x, y })) {
     this.paintColor(red)
