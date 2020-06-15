@@ -1,5 +1,5 @@
 import { test, assertions } from 'naive-tests'
-import { red, green } from '../../../src/ui/colors.mjs'
+import { red, green } from '../../../src/common/colors.mjs'
 import { Selector, SelectorOption } from '../../../src/ui/widgets/selector.mjs'
 
 const { equals, notEquals, sameArrayElements } = assertions
