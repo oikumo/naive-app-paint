@@ -1,0 +1,2 @@
+Recreate image:
+$ xxd -r -p < file-image-hex > file-image-bin

@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "naive-3d": "^0.0.23",
-    "naive-tests": "^1.0.18"
+    "naive-tests": "^1.0.19"
   }
 }
