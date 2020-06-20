@@ -3,11 +3,13 @@ const red = 0xFF0000FF
 const green = 0xFF00FF00
 const blue = 0xFFFF0000
 const gray = 0xFF111111
+const yellow = 0xFFFFFF00
 
-export {
+export {    
     bgColor,
     red,
     green,
     blue,
-    gray
+    gray,
+    yellow
 }
