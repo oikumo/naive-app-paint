@@ -3,6 +3,7 @@ import { MainController } from './screens/main/main-controller.mjs'
 import { MainView } from './screens/main/main-view.mjs'
 import { UserEvents } from './screens/main/user-events.mjs'
 import { bgColor } from './common/colors.mjs'
+import { Session } from './sessions/session.mjs'
 
 const interval = 5
 
@@ -15,6 +16,7 @@ const run = () => {
   canvas.onmousemove = userEvents.onMove.bind(userEvents)
   canvas.onmousedown = userEvents.onActionDown.bind(userEvents)
   canvas.onmouseup = userEvents.onActionUp.bind(userEvents)
+  const session = new Session()
 
   const screen = {
     width: canvas.width,
@@ -22,7 +24,7 @@ const run = () => {
   }
 
   const mainView = new MainView(screen)
-  const mainController = new MainController(mainView, userEvents)
+  const mainController = new MainController(mainView, userEvents, session)
   mainController.init()
 
   setInterval(() => {

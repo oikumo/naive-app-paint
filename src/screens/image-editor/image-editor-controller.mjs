@@ -10,7 +10,7 @@ const State = function () {
     this.currentColor = red
 }
 
-const ImageEditorController = function (view) {
+const ImageEditorController = function (view, session) {
     this.drawingTools = new DrawingToolbox()
     this.drawingToolsKeys = {
         BRUSH: 'BRUSH',
@@ -24,6 +24,7 @@ const ImageEditorController = function (view) {
     this.state = new State()
     this.view = view
     this.view.controller = this
+    this.session = session
 
     this.tex = new Texture(320, 320)
     this.texCenter = { x: this.tex.width / 2, y: this.tex.height / 2 }
@@ -40,6 +41,10 @@ ImageEditorController.prototype.brushCircle = function () {
 
 ImageEditorController.prototype.brushTexture = function () {
     this.drawingTools.setCurrentTool(this.drawingToolsKeys.BRUSH)
+}
+
+ImageEditorController.prototype.saveImage = function () {
+    this.session.saveImage(this.tex)
 }
 
 ImageEditorController.prototype.colorSelected = function (color) {

@@ -16,10 +16,12 @@ ImageEditorView.prototype.createUi = function () {
     this.buttonBlue = createUiComponent(new UiRect({ x: 500, y: height - 100 }, 100, 50), blue)
     this.buttonBrushCircle = createUiComponent(new UiRect({ x: 200, y: height - 40 }, 25, 25), green)
     this.buttonBrushTexture = createUiComponent(new UiRect({ x: 400, y: height - 40 }, 25, 25), blue)
+    this.buttonSave = createUiComponent(new UiRect({ x: 400, y: height - 200 }, 25, 25), red)
 }
 
 ImageEditorView.prototype.onActionUp = function (x, y) {
     this.controller.paintActive(false)
+    if (this.actionSelection(x, y)) return
     if (this.brushSelection(x, y)) return
     if (this.brushColorSelection(x, y)) return
 }
@@ -30,6 +32,14 @@ ImageEditorView.prototype.onMove = function (x, y) {
 
 ImageEditorView.prototype.onActionDown = function () {
     this.controller.paintActive(true)
+}
+
+ImageEditorView.prototype.actionSelection = function (x, y) {
+    if (this.buttonSave.inside({ x, y })) {
+        this.controller.saveImage()
+        return true
+    }
+    return false
 }
 
 ImageEditorView.prototype.brushSelection = function (x, y) {
@@ -67,6 +77,7 @@ ImageEditorView.prototype.draw = function (texture, textureWidth) {
     drawUiComponent(this.buttonBlue, texture, textureWidth)
     drawUiComponent(this.buttonBrushCircle, texture, textureWidth)
     drawUiComponent(this.buttonBrushTexture, texture, textureWidth)
+    drawUiComponent(this.buttonSave, texture, textureWidth)
 }
 
 export {
