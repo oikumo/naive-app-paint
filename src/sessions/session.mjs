@@ -1,4 +1,4 @@
-import { createBmp } from 'naive-3d'
+import { texture2bmp } from 'naive-3d'
 
 function saveByteArray(byteArray, filename) {
     var a = window.document.createElement('a');
@@ -11,8 +11,8 @@ function saveByteArray(byteArray, filename) {
 
 const Session = function () { }
 
-Session.prototype.saveImage = function (tex) {
-    const bmp = createBmp(tex.pixels, tex.width, tex.height)
+Session.prototype.saveImage = function (texture) {
+    const bmp = texture2bmp(texture)
     const filename = "image.bmp"
     saveByteArray(bmp, filename)
 }
