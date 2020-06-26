@@ -29,6 +29,10 @@ const ImageEditorController = function (view, session) {
     this.tex = new Texture(320, 320)
     this.texCenter = { x: this.tex.width / 2, y: this.tex.height / 2 }
     this.tex.fill(() => parseInt(0xFFff4405))
+
+    this.session.setTexture = (texture) => {
+        this.tex = texture
+    }
 }
 
 ImageEditorController.prototype.paintActive = function (active) {

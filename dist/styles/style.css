@@ -24,3 +24,11 @@ html {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
 }
+
+#drop_zone {
+    text-align: center;
+    align-content: center;
+    border: 4px solid gray;
+    width:  100px;
+    height: 50px;
+}
