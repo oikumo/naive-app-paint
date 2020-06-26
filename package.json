@@ -1,6 +1,6 @@
 {
   "name": "naive-app-paint",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A Paint app using naive-3d",
   "main": "index.mjs",
   "directories": {
