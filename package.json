@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "node test-runner.mjs",
-    "build": "npx webpack --mode production",
-    "build-dev": "npx webpack --mode development"
+    "build-prod": "npx webpack --mode production",
+    "build-dev": "npx webpack --mode development",
+    "ins": "npm i"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,6 @@
     "naive-tests": "^1.0.19"
   },
   "dependencies": {
-    "naive-3d": "^0.0.37"
+    "naive-3d": "^0.0.38"
   }
 }

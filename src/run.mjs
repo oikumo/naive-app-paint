@@ -20,7 +20,7 @@ const run = () => {
   canvas.onmouseup = userEvents.onActionUp.bind(userEvents)
 
   const session = new Session(downloadImage)
-  registerDropImageArea('drop_zone', session.loadImage.bind(session))
+  registerDropImageArea('canvas', session.loadImage.bind(session))
 
   const screen = {
     width: canvas.width,

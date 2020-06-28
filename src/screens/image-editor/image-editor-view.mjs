@@ -4,19 +4,38 @@ const { createUiComponent, drawUiComponent, UiRect } = ui
 
 const ImageEditorView = function (screen) {
     this.screen = screen
+}
+
+ImageEditorView.prototype.init = function (controller) {
+    this.controller = controller
     this.createUi()
 }
 
 ImageEditorView.prototype.createUi = function () {
     const width = this.screen.width
     const height = this.screen.height
-    this.panel = createUiComponent(new UiRect({ x: 0, y: height - 150 }, width, 150), gray)
-    this.buttonRed = createUiComponent(new UiRect({ x: 100, y: height - 100 }, 100, 50), red)
-    this.buttonGreen = createUiComponent(new UiRect({ x: 300, y: height - 100 }, 100, 50), green)
-    this.buttonBlue = createUiComponent(new UiRect({ x: 500, y: height - 100 }, 100, 50), blue)
-    this.buttonBrushCircle = createUiComponent(new UiRect({ x: 200, y: height - 40 }, 25, 25), green)
-    this.buttonBrushTexture = createUiComponent(new UiRect({ x: 400, y: height - 40 }, 25, 25), blue)
-    this.buttonSave = createUiComponent(new UiRect({ x: 400, y: height - 200 }, 25, 25), red)
+
+    const leftPanelWidth = width * 0.15
+    this.panelLeft = createUiComponent(new UiRect({ x: 0, y: 0 }, leftPanelWidth, height), gray)
+    const leftButtonXOffset = width * 0.025
+    const leftButtonWidth = width * 0.1
+    const leftButtonHeight = height * 0.05
+    this.buttonBrushCircle = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.1 }, leftButtonWidth, leftButtonHeight), green)
+    this.buttonBrushTexture = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.2 }, leftButtonWidth, leftButtonHeight), blue)
+    this.buttonSave = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.3 }, leftButtonWidth, leftButtonHeight), red)
+
+
+    const RightPanelWidth = width * 0.15
+    this.panelRight = createUiComponent(new UiRect({ x: width * 0.85, y: 0 }, RightPanelWidth, height), gray)
+    const buttonXOffset = width * 0.88
+    const buttonWidth = width * 0.1
+    const buttonHeight = height * 0.1
+    this.buttonRed = createUiComponent(new UiRect({ x: buttonXOffset, y: height * 0.1 }, buttonWidth, buttonHeight), red)
+    this.buttonGreen = createUiComponent(new UiRect({ x: buttonXOffset, y: height * 0.2 }, buttonWidth, buttonHeight), green)
+    this.buttonBlue = createUiComponent(new UiRect({ x: buttonXOffset, y: height * 0.3 }, buttonWidth, buttonHeight), blue)
+
+    this.currentColor = createUiComponent(new UiRect({ x: buttonXOffset, y: height * 0.85 }, buttonWidth, buttonHeight), red)
+    this.currentColor.backgroundColor = this.controller.getCurrentColor.bind(this.controller)
 }
 
 ImageEditorView.prototype.onActionUp = function (x, y) {
@@ -71,10 +90,16 @@ ImageEditorView.prototype.brushColorSelection = function (x, y) {
 }
 
 ImageEditorView.prototype.draw = function (texture, textureWidth) {
-    drawUiComponent(this.panel, texture, textureWidth)
+    drawUiComponent(this.panelLeft, texture, textureWidth)
+
+
+    drawUiComponent(this.panelRight, texture, textureWidth)
     drawUiComponent(this.buttonRed, texture, textureWidth)
     drawUiComponent(this.buttonGreen, texture, textureWidth)
     drawUiComponent(this.buttonBlue, texture, textureWidth)
+    drawUiComponent(this.currentColor, texture, textureWidth)
+
+
     drawUiComponent(this.buttonBrushCircle, texture, textureWidth)
     drawUiComponent(this.buttonBrushTexture, texture, textureWidth)
     drawUiComponent(this.buttonSave, texture, textureWidth)

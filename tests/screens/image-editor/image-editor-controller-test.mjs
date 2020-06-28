@@ -5,8 +5,15 @@ import { Session } from '../../../src/sessions/session.mjs'
 
 const { equals } = assertions
 
+const MockView = function () {
+    this.controller = null
+    this.init = function (controller) {
+        this.controller = controller
+    }
+}
+
 test('create image editor controller', () => {
-    const view = {}
+    const view = new MockView()
     const session = new Session(() => { })
     const controller = new ImageEditorController(view, session)
     equals(red, controller.state.currentColor)
@@ -14,7 +21,7 @@ test('create image editor controller', () => {
 })
 
 test('image editor color selection', () => {
-    const view = {}
+    const view = new MockView()
     const session = new Session(() => { })
     const controller = new ImageEditorController(view, session)
     equals(red, controller.state.currentColor)
@@ -27,6 +34,7 @@ test('image editor draw', () => {
     const texWidth = 100
     let drawCount = 0
     const view = {
+        init: function () { },
         draw: function (t, tw) {
             equals(tex, t)
             equals(texWidth, tw)
@@ -42,7 +50,7 @@ test('image editor draw', () => {
 })
 
 test('image editor brush selection', () => {
-    const view = {}
+    const view = new MockView()
     const session = new Session(() => { })
     const controller = new ImageEditorController(view, session)
 

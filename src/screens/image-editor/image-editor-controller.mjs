@@ -23,7 +23,7 @@ const ImageEditorController = function (view, session) {
 
     this.state = new State()
     this.view = view
-    this.view.controller = this
+    this.view.init(this)
     this.session = session
 
     this.tex = new Texture(320, 320)
@@ -33,6 +33,10 @@ const ImageEditorController = function (view, session) {
     this.session.setTexture = (texture) => {
         this.tex = texture
     }
+}
+
+ImageEditorController.prototype.getCurrentColor = function () {
+    return this.state.currentColor
 }
 
 ImageEditorController.prototype.paintActive = function (active) {
