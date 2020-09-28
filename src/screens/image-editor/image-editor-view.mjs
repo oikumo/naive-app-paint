@@ -14,6 +14,8 @@ ImageEditorView.prototype.init = function (controller) {
 ImageEditorView.prototype.createUi = function () {
     const width = this.screen.width
     const height = this.screen.height
+    this.lastMovePosition = { x: 0, y: 0 }
+    this.deltaPosition = { x: 0, y: 0 }
 
     const leftPanelWidth = width * 0.15
     this.panelLeft = createUiComponent(new UiRect({ x: 0, y: 0 }, leftPanelWidth, height), gray)
@@ -22,7 +24,8 @@ ImageEditorView.prototype.createUi = function () {
     const leftButtonHeight = height * 0.05
     this.buttonBrushCircle = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.1 }, leftButtonWidth, leftButtonHeight), green)
     this.buttonBrushTexture = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.2 }, leftButtonWidth, leftButtonHeight), blue)
-    this.buttonSave = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.3 }, leftButtonWidth, leftButtonHeight), red)
+    this.buttonPan = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.3 }, leftButtonWidth, leftButtonHeight), blue)
+    this.buttonSave = createUiComponent(new UiRect({ x: leftButtonXOffset, y: height * 0.4 }, leftButtonWidth, leftButtonHeight), red)
 
 
     const RightPanelWidth = width * 0.15
@@ -43,14 +46,34 @@ ImageEditorView.prototype.onActionUp = function (x, y) {
     if (this.actionSelection(x, y)) return
     if (this.brushSelection(x, y)) return
     if (this.brushColorSelection(x, y)) return
+    if (this.panModeSelection(x, y)) return
 }
 
 ImageEditorView.prototype.onMove = function (x, y) {
     this.controller.paint(x, y)
+
+    this.deltaPosition = {
+        x: x - this.lastMovePosition.x,
+        y: y - this.lastMovePosition.y
+    }
+
+    this.lastMovePosition = { x, y }
 }
 
 ImageEditorView.prototype.onActionDown = function () {
     this.controller.paintActive(true)
+
+    if (this.controller.state.panModeActive) {
+        this.controller.pan(this.deltaPosition.x, this.deltaPosition.y)
+    }
+}
+
+ImageEditorView.prototype.panModeSelection = function (x, y) {
+    if (this.buttonPan.inside({ x, y })) {
+        this.controller.tooglePanModeActive()
+        return true
+    }
+    return false
 }
 
 ImageEditorView.prototype.actionSelection = function (x, y) {
@@ -91,18 +114,16 @@ ImageEditorView.prototype.brushColorSelection = function (x, y) {
 
 ImageEditorView.prototype.draw = function (texture, textureWidth) {
     drawUiComponent(this.panelLeft, texture, textureWidth)
-
+    drawUiComponent(this.buttonBrushCircle, texture, textureWidth)
+    drawUiComponent(this.buttonBrushTexture, texture, textureWidth)
+    drawUiComponent(this.buttonPan, texture, textureWidth)
+    drawUiComponent(this.buttonSave, texture, textureWidth)
 
     drawUiComponent(this.panelRight, texture, textureWidth)
     drawUiComponent(this.buttonRed, texture, textureWidth)
     drawUiComponent(this.buttonGreen, texture, textureWidth)
     drawUiComponent(this.buttonBlue, texture, textureWidth)
     drawUiComponent(this.currentColor, texture, textureWidth)
-
-
-    drawUiComponent(this.buttonBrushCircle, texture, textureWidth)
-    drawUiComponent(this.buttonBrushTexture, texture, textureWidth)
-    drawUiComponent(this.buttonSave, texture, textureWidth)
 }
 
 export {

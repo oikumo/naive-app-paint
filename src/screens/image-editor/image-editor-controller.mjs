@@ -8,6 +8,7 @@ import { PencilTool } from './drawing-toolbox/pencil-tool.mjs'
 const State = function () {
     this.painting = false
     this.currentColor = red
+    this.panModeActive = false
 }
 
 const ImageEditorController = function (view, session) {
@@ -54,6 +55,18 @@ ImageEditorController.prototype.brushTexture = function () {
 ImageEditorController.prototype.saveImage = function () {
     this.session.saveImage(this.tex)
 }
+
+ImageEditorController.prototype.tooglePanModeActive = function () {
+    this.state.panModeActive = !this.state.panModeActive
+}
+
+ImageEditorController.prototype.pan = function (x, y) {
+    if (!this.state.panModeActive)
+        return
+    this.texCenter.x += x
+    this.texCenter.y += y
+}
+
 
 ImageEditorController.prototype.colorSelected = function (color) {
     this.state.painting = false
